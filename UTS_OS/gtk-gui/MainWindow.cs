@@ -132,7 +132,7 @@ public partial class MainWindow
 		// Container child vbox2.Gtk.Box+BoxChild
 		this.labelNR = new global::Gtk.Label();
 		this.labelNR.Name = "labelNR";
-		this.labelNR.LabelProp = global::Mono.Unix.Catalog.GetString("n P r");
+		this.labelNR.LabelProp = global::Mono.Unix.Catalog.GetString("N/A");
 		this.vbox2.Add(this.labelNR);
 		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.labelNR]));
 		w9.Position = 0;
@@ -243,6 +243,7 @@ public partial class MainWindow
 		this.DefaultHeight = 515;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
+		this.radiobuttonP.Toggled += new global::System.EventHandler(this.OnRadiobuttonPToggled);
 		this.spinN.Changed += new global::System.EventHandler(this.OnSpinNChanged);
 		this.spinN.TextInserted += new global::Gtk.TextInsertedHandler(this.OnSpinNTextInserted);
 		this.spinN.TextDeleted += new global::Gtk.TextDeletedHandler(this.OnSpinNTextDeleted);

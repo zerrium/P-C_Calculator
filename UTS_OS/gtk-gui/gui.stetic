@@ -58,6 +58,7 @@
                     <property name="HasLabel">True</property>
                     <property name="UseUnderline">True</property>
                     <property name="Group">group1</property>
+                    <signal name="Toggled" handler="OnRadiobuttonPToggled" />
                   </widget>
                   <packing>
                     <property name="Position">1</property>
@@ -115,7 +116,7 @@
             <child>
               <widget class="Gtk.Label" id="labelNR">
                 <property name="MemberName" />
-                <property name="LabelProp" translatable="yes">n P r</property>
+                <property name="LabelProp" translatable="yes">N/A</property>
               </widget>
               <packing>
                 <property name="Position">0</property>

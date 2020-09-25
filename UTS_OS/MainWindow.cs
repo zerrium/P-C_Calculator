@@ -3,9 +3,17 @@ using Gtk;
 
 public partial class MainWindow : Gtk.Window
 {
+
     public MainWindow() : base(Gtk.WindowType.Toplevel)
     {
         Build();
+        labelNR.ModifyFont(Pango.FontDescription.FromString("36"));
+        ChangeLabelNR();
+    }
+
+    private void ChangeLabelNR()
+    {
+        labelNR.LabelProp = radiobuttonP.Active ? "ₙPᵣ" : "ₙCᵣ";
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -51,5 +59,11 @@ public partial class MainWindow : Gtk.Window
 
         }
 
+    }
+
+    protected void OnRadiobuttonPToggled(object sender, EventArgs e)
+    {
+        Console.WriteLine("OnRadiobuttonPToggled Event fired");
+        ChangeLabelNR();
     }
 }
