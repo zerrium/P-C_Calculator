@@ -48,7 +48,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.RadioButton" id="radiobutton1">
+                  <widget class="Gtk.RadioButton" id="radiobuttonP">
                     <property name="MemberName" />
                     <property name="Tooltip" translatable="yes">Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dilakukan dari sejumlah (n) set item dengan (r) sub-set item. Note: operasi permutasi di kalkulator ini adalah permutasi tanpa pengulangan item yang sama.</property>
                     <property name="CanFocus">True</property>
@@ -65,7 +65,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.RadioButton" id="radiobutton2">
+                  <widget class="Gtk.RadioButton" id="radiobuttonC">
                     <property name="MemberName" />
                     <property name="Tooltip" translatable="yes">Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dilakukan dari sejumlah (n) set item dengan (r) sub-set item yang unik (tanpa pengulangan pola dengan item yang sama)</property>
                     <property name="CanFocus">True</property>
@@ -113,7 +113,7 @@
             <property name="Spacing">8</property>
             <property name="BorderWidth">20</property>
             <child>
-              <widget class="Gtk.Label" id="label2">
+              <widget class="Gtk.Label" id="labelNR">
                 <property name="MemberName" />
                 <property name="LabelProp" translatable="yes">n P r</property>
               </widget>
@@ -144,18 +144,19 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.SpinButton" id="spinbutton1">
+                  <widget class="Gtk.SpinButton" id="spinN">
                     <property name="MemberName" />
                     <property name="WidthRequest">127</property>
+                    <property name="Tooltip" translatable="yes">Hanya bisa bilangan bulat positif</property>
                     <property name="CanFocus">True</property>
                     <property name="Upper">2147483647</property>
                     <property name="PageIncrement">10</property>
                     <property name="StepIncrement">1</property>
                     <property name="ClimbRate">1</property>
                     <property name="Numeric">True</property>
-                    <signal name="Changed" handler="OnSpinbutton1Changed" />
-                    <signal name="TextInserted" handler="OnSpinbutton1TextInserted" />
-                    <signal name="TextDeleted" handler="OnSpinbutton1TextDeleted" />
+                    <signal name="Changed" handler="OnSpinNChanged" />
+                    <signal name="TextInserted" handler="OnSpinNTextInserted" />
+                    <signal name="TextDeleted" handler="OnSpinNTextDeleted" />
                   </widget>
                   <packing>
                     <property name="Position">1</property>
@@ -195,9 +196,10 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.SpinButton" id="spinbutton2">
+                  <widget class="Gtk.SpinButton" id="spinR">
                     <property name="MemberName" />
                     <property name="WidthRequest">127</property>
+                    <property name="Tooltip" translatable="yes">Nilai sub-set tidak bisa lebih dari nilai set. Hanya bisa bilangan bulat positif</property>
                     <property name="CanFocus">True</property>
                     <property name="Upper">2147483647</property>
                     <property name="PageIncrement">10</property>
@@ -232,7 +234,38 @@
           </packing>
         </child>
         <child>
-          <placeholder />
+          <widget class="Gtk.HBox" id="hbox4">
+            <property name="MemberName" />
+            <property name="Spacing">6</property>
+            <child>
+              <placeholder />
+            </child>
+            <child>
+              <widget class="Gtk.Button" id="buttonHitung">
+                <property name="MemberName" />
+                <property name="WidthRequest">150</property>
+                <property name="HeightRequest">50</property>
+                <property name="CanFocus">True</property>
+                <property name="Type">TextOnly</property>
+                <property name="Label" translatable="yes">Hitung</property>
+                <property name="UseUnderline">True</property>
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder />
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">2</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
         </child>
       </widget>
     </child>

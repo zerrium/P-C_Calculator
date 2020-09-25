@@ -13,27 +13,31 @@ public partial class MainWindow
 
 	private global::Gtk.Label label1;
 
-	private global::Gtk.RadioButton radiobutton1;
+	private global::Gtk.RadioButton radiobuttonP;
 
-	private global::Gtk.RadioButton radiobutton2;
+	private global::Gtk.RadioButton radiobuttonC;
 
 	private global::Gtk.HSeparator hseparator3;
 
 	private global::Gtk.VBox vbox2;
 
-	private global::Gtk.Label label2;
+	private global::Gtk.Label labelNR;
 
 	private global::Gtk.HBox hbox2;
 
 	private global::Gtk.Label label3;
 
-	private global::Gtk.SpinButton spinbutton1;
+	private global::Gtk.SpinButton spinN;
 
 	private global::Gtk.HBox hbox3;
 
 	private global::Gtk.Label label4;
 
-	private global::Gtk.SpinButton spinbutton2;
+	private global::Gtk.SpinButton spinR;
+
+	private global::Gtk.HBox hbox4;
+
+	private global::Gtk.Button buttonHitung;
 
 	protected virtual void Build()
 	{
@@ -73,35 +77,35 @@ public partial class MainWindow
 		w2.Expand = false;
 		w2.Fill = false;
 		// Container child hbox1.Gtk.Box+BoxChild
-		this.radiobutton1 = new global::Gtk.RadioButton(global::Mono.Unix.Catalog.GetString("Permutasi"));
+		this.radiobuttonP = new global::Gtk.RadioButton(global::Mono.Unix.Catalog.GetString("Permutasi"));
 		global::Gtk.Tooltips w3 = new Gtk.Tooltips();
-		w3.SetTip(this.radiobutton1, "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
+		w3.SetTip(this.radiobuttonP, "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
 				"kukan dari sejumlah (n) set item dengan (r) sub-set item. Note: operasi permutas" +
 				"i di kalkulator ini adalah permutasi tanpa pengulangan item yang sama.", "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
 				"kukan dari sejumlah (n) set item dengan (r) sub-set item. Note: operasi permutas" +
 				"i di kalkulator ini adalah permutasi tanpa pengulangan item yang sama.");
-		this.radiobutton1.CanFocus = true;
-		this.radiobutton1.Name = "radiobutton1";
-		this.radiobutton1.DrawIndicator = true;
-		this.radiobutton1.UseUnderline = true;
-		this.radiobutton1.Group = new global::GLib.SList(global::System.IntPtr.Zero);
-		this.hbox1.Add(this.radiobutton1);
-		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.radiobutton1]));
+		this.radiobuttonP.CanFocus = true;
+		this.radiobuttonP.Name = "radiobuttonP";
+		this.radiobuttonP.DrawIndicator = true;
+		this.radiobuttonP.UseUnderline = true;
+		this.radiobuttonP.Group = new global::GLib.SList(global::System.IntPtr.Zero);
+		this.hbox1.Add(this.radiobuttonP);
+		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.radiobuttonP]));
 		w4.Position = 1;
 		// Container child hbox1.Gtk.Box+BoxChild
-		this.radiobutton2 = new global::Gtk.RadioButton(global::Mono.Unix.Catalog.GetString("Kombinasi"));
-		w3.SetTip(this.radiobutton2, "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
+		this.radiobuttonC = new global::Gtk.RadioButton(global::Mono.Unix.Catalog.GetString("Kombinasi"));
+		w3.SetTip(this.radiobuttonC, "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
 				"kukan dari sejumlah (n) set item dengan (r) sub-set item yang unik (tanpa pengul" +
 				"angan pola dengan item yang sama)", "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
 				"kukan dari sejumlah (n) set item dengan (r) sub-set item yang unik (tanpa pengul" +
 				"angan pola dengan item yang sama)");
-		this.radiobutton2.CanFocus = true;
-		this.radiobutton2.Name = "radiobutton2";
-		this.radiobutton2.DrawIndicator = true;
-		this.radiobutton2.UseUnderline = true;
-		this.radiobutton2.Group = this.radiobutton1.Group;
-		this.hbox1.Add(this.radiobutton2);
-		global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.radiobutton2]));
+		this.radiobuttonC.CanFocus = true;
+		this.radiobuttonC.Name = "radiobuttonC";
+		this.radiobuttonC.DrawIndicator = true;
+		this.radiobuttonC.UseUnderline = true;
+		this.radiobuttonC.Group = this.radiobuttonP.Group;
+		this.hbox1.Add(this.radiobuttonC);
+		global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.radiobuttonC]));
 		w5.Position = 2;
 		this.vbox4.Add(this.hbox1);
 		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox4[this.hbox1]));
@@ -126,11 +130,11 @@ public partial class MainWindow
 		this.vbox2.Spacing = 8;
 		this.vbox2.BorderWidth = ((uint)(20));
 		// Container child vbox2.Gtk.Box+BoxChild
-		this.label2 = new global::Gtk.Label();
-		this.label2.Name = "label2";
-		this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("n P r");
-		this.vbox2.Add(this.label2);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.label2]));
+		this.labelNR = new global::Gtk.Label();
+		this.labelNR.Name = "labelNR";
+		this.labelNR.LabelProp = global::Mono.Unix.Catalog.GetString("n P r");
+		this.vbox2.Add(this.labelNR);
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.labelNR]));
 		w9.Position = 0;
 		w9.Expand = false;
 		w9.Fill = false;
@@ -151,15 +155,16 @@ public partial class MainWindow
 		w10.Expand = false;
 		w10.Fill = false;
 		// Container child hbox2.Gtk.Box+BoxChild
-		this.spinbutton1 = new global::Gtk.SpinButton(0D, 2147483647D, 1D);
-		this.spinbutton1.WidthRequest = 127;
-		this.spinbutton1.CanFocus = true;
-		this.spinbutton1.Name = "spinbutton1";
-		this.spinbutton1.Adjustment.PageIncrement = 10D;
-		this.spinbutton1.ClimbRate = 1D;
-		this.spinbutton1.Numeric = true;
-		this.hbox2.Add(this.spinbutton1);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.spinbutton1]));
+		this.spinN = new global::Gtk.SpinButton(0D, 2147483647D, 1D);
+		w3.SetTip(this.spinN, "Hanya bisa bilangan bulat positif", "Hanya bisa bilangan bulat positif");
+		this.spinN.WidthRequest = 127;
+		this.spinN.CanFocus = true;
+		this.spinN.Name = "spinN";
+		this.spinN.Adjustment.PageIncrement = 10D;
+		this.spinN.ClimbRate = 1D;
+		this.spinN.Numeric = true;
+		this.hbox2.Add(this.spinN);
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.spinN]));
 		w11.Position = 1;
 		w11.Expand = false;
 		w11.Fill = false;
@@ -185,15 +190,16 @@ public partial class MainWindow
 		w13.Expand = false;
 		w13.Fill = false;
 		// Container child hbox3.Gtk.Box+BoxChild
-		this.spinbutton2 = new global::Gtk.SpinButton(0D, 2147483647D, 1D);
-		this.spinbutton2.WidthRequest = 127;
-		this.spinbutton2.CanFocus = true;
-		this.spinbutton2.Name = "spinbutton2";
-		this.spinbutton2.Adjustment.PageIncrement = 10D;
-		this.spinbutton2.ClimbRate = 1D;
-		this.spinbutton2.Numeric = true;
-		this.hbox3.Add(this.spinbutton2);
-		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.spinbutton2]));
+		this.spinR = new global::Gtk.SpinButton(0D, 2147483647D, 1D);
+		w3.SetTip(this.spinR, "Nilai sub-set tidak bisa lebih dari nilai set. Hanya bisa bilangan bulat positif", "Nilai sub-set tidak bisa lebih dari nilai set. Hanya bisa bilangan bulat positif");
+		this.spinR.WidthRequest = 127;
+		this.spinR.CanFocus = true;
+		this.spinR.Name = "spinR";
+		this.spinR.Adjustment.PageIncrement = 10D;
+		this.spinR.ClimbRate = 1D;
+		this.spinR.Numeric = true;
+		this.hbox3.Add(this.spinR);
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.spinR]));
 		w14.Position = 1;
 		w14.Expand = false;
 		w14.Fill = false;
@@ -207,6 +213,27 @@ public partial class MainWindow
 		w16.Position = 1;
 		w16.Expand = false;
 		w16.Fill = false;
+		// Container child vbox1.Gtk.Box+BoxChild
+		this.hbox4 = new global::Gtk.HBox();
+		this.hbox4.Name = "hbox4";
+		this.hbox4.Spacing = 6;
+		// Container child hbox4.Gtk.Box+BoxChild
+		this.buttonHitung = new global::Gtk.Button();
+		this.buttonHitung.WidthRequest = 150;
+		this.buttonHitung.HeightRequest = 50;
+		this.buttonHitung.CanFocus = true;
+		this.buttonHitung.Name = "buttonHitung";
+		this.buttonHitung.UseUnderline = true;
+		this.buttonHitung.Label = global::Mono.Unix.Catalog.GetString("Hitung");
+		this.hbox4.Add(this.buttonHitung);
+		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.buttonHitung]));
+		w17.Position = 1;
+		w17.Fill = false;
+		this.vbox1.Add(this.hbox4);
+		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox4]));
+		w18.Position = 2;
+		w18.Expand = false;
+		w18.Fill = false;
 		this.Add(this.vbox1);
 		if ((this.Child != null))
 		{
@@ -216,8 +243,8 @@ public partial class MainWindow
 		this.DefaultHeight = 515;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
-		this.spinbutton1.Changed += new global::System.EventHandler(this.OnSpinbutton1Changed);
-		this.spinbutton1.TextInserted += new global::Gtk.TextInsertedHandler(this.OnSpinbutton1TextInserted);
-		this.spinbutton1.TextDeleted += new global::Gtk.TextDeletedHandler(this.OnSpinbutton1TextDeleted);
+		this.spinN.Changed += new global::System.EventHandler(this.OnSpinNChanged);
+		this.spinN.TextInserted += new global::Gtk.TextInsertedHandler(this.OnSpinNTextInserted);
+		this.spinN.TextDeleted += new global::Gtk.TextDeletedHandler(this.OnSpinNTextDeleted);
 	}
 }

@@ -14,18 +14,22 @@ public partial class MainWindow : Gtk.Window
         a.RetVal = true;
     }
 
-    protected void OnSpinbutton1Changed(object sender, System.EventArgs e)
+    protected void OnSpinNChanged(object sender, System.EventArgs e)
     {
-        spinbutton2.SetRange(0, spinbutton1.Value);
+        double temp = spinN.Value;
+        Console.WriteLine("OnSpinNChanged Event fired");
+        Console.WriteLine("Value taken: " + temp);
+        spinR.SetRange(0, temp);
     }
 
-    protected void OnSpinbutton1TextInserted(object o, TextInsertedArgs args)
+    protected void OnSpinNTextInserted(object o, TextInsertedArgs args)
     {
-        Console.WriteLine("Fired Inserted");
-        Console.WriteLine(spinbutton1.Text);
+        string temp = spinN.Text;
+        Console.WriteLine("OnSpinNTextInserted Event fired");
+        Console.WriteLine("Value taken: "+ temp);
         try
         {
-            spinbutton2.SetRange(0, Convert.ToDouble(spinbutton1.Text));
+            spinR.SetRange(0, Convert.ToDouble(temp));
         }
         catch (System.FormatException)
         {
@@ -33,13 +37,14 @@ public partial class MainWindow : Gtk.Window
         }
     }
 
-    protected void OnSpinbutton1TextDeleted(object o, TextDeletedArgs args)
+    protected void OnSpinNTextDeleted(object o, TextDeletedArgs args)
     {
-        Console.WriteLine("Fired Deleted");
-        Console.WriteLine(spinbutton1.Text);
+        string temp = spinN.Text;
+        Console.WriteLine("OnSpinNTextDeleted Event fired");
+        Console.WriteLine("Value taken: "+ temp);
         try
         {
-            spinbutton2.SetRange(0, Convert.ToDouble(spinbutton1.Text));
+            spinR.SetRange(0, Convert.ToDouble(temp));
         }
         catch (System.FormatException)
         {
