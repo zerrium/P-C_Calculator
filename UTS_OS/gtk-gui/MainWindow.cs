@@ -24,7 +24,7 @@ public partial class MainWindow
 		global::Stetic.Gui.Initialize(this);
 		// Widget MainWindow
 		this.Name = "MainWindow";
-		this.Title = global::Mono.Unix.Catalog.GetString("Permutation and Combination Calculator by Willy Susilo");
+		this.Title = "Permutation and Combination Calculator by Willy Susilo";
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox1 = new global::Gtk.VBox();
@@ -49,14 +49,14 @@ public partial class MainWindow
 		// Container child hbox1.Gtk.Box+BoxChild
 		this.label1 = new global::Gtk.Label();
 		this.label1.Name = "label1";
-		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString("Pilih operasi perhitungan: ");
+		this.label1.LabelProp = "Pilih operasi perhitungan: ";
 		this.hbox1.Add(this.label1);
 		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.label1]));
 		w2.Position = 0;
 		w2.Expand = false;
 		w2.Fill = false;
 		// Container child hbox1.Gtk.Box+BoxChild
-		this.radiobutton1 = new global::Gtk.RadioButton(global::Mono.Unix.Catalog.GetString("Permutasi"));
+		this.radiobutton1 = new global::Gtk.RadioButton("Permutasi");
 		global::Gtk.Tooltips w3 = new Gtk.Tooltips();
 		w3.SetTip(this.radiobutton1, "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
 				"kukan dari sejumlah (n) set item dengan (r) sub-set item. Note: operasi permutas" +
@@ -72,7 +72,7 @@ public partial class MainWindow
 		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.radiobutton1]));
 		w4.Position = 1;
 		// Container child hbox1.Gtk.Box+BoxChild
-		this.radiobutton2 = new global::Gtk.RadioButton(global::Mono.Unix.Catalog.GetString("Kombinasi"));
+		this.radiobutton2 = new global::Gtk.RadioButton("Kombinasi");
 		w3.SetTip(this.radiobutton2, "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
 				"kukan dari sejumlah (n) set item dengan (r) sub-set item yang unik (tanpa pengul" +
 				"angan pola dengan item yang sama)", "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
