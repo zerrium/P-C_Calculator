@@ -244,7 +244,7 @@
             <child>
               <widget class="Gtk.Button" id="buttonHitung">
                 <property name="MemberName" />
-                <property name="WidthRequest">160</property>
+                <property name="WidthRequest">200</property>
                 <property name="HeightRequest">50</property>
                 <property name="CanFocus">True</property>
                 <property name="Type">TextOnly</property>

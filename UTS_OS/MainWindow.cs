@@ -8,6 +8,7 @@ public partial class MainWindow : Window
     public MainWindow() : base(WindowType.Toplevel)
     {
         Build();
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "GUI form appeared");
         labelNR.ModifyFont(Pango.FontDescription.FromString("36"));
         ChangeLabelNR();
     }
@@ -120,8 +121,8 @@ public partial class MainWindow : Window
             return;
         }
 
-        MessageDialog plsWait = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.None, "Menghitung hasil...");
-        plsWait.ShowAll();
+        buttonHitung.Sensitive = false;
+        buttonHitung.Label = "Menghitung hasil...";
 
         string result = isPermutation ? CountPermutation(n, r).Result.ToString("R") : CountCombination(n, r).Result.ToString("R"); //preserve the whole BigInteger value
         string text = "Hasil " + (isPermutation ? "permutasi:" : "kombinasi:") + "\n";
@@ -140,9 +141,9 @@ public partial class MainWindow : Window
             countLine++;
         }
         text += result_normalized +"\n\n";
-        plsWait.Destroy();
 
         MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.None, text);
+
         Button b0 = (Button)md.AddButton("Lihat Rumus", 0);
         Button b1 = (Button)md.AddButton("Copy Hasil", 1);
         Button b2 = (Button)md.AddButton("Tutup", 2);
@@ -152,8 +153,9 @@ public partial class MainWindow : Window
         b1.Clicked += ButtonDialogCopyClicked;
         b2.Clicked += ButtonDialogTutupClicked;
 
-        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Info Dialog fired. Message:\n" + text);
         md.Run();
+        buttonHitung.Label = "Hitung";
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Result message dialog fired:\n" + text);
 
         void ButtonDialogRumusClicked(object senderr, EventArgs ee)
         {
@@ -185,14 +187,21 @@ public partial class MainWindow : Window
         void ButtonDialogTutupClicked(object senderr, EventArgs ee)
         {
             Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "ButtonDialogTutupClicked event fired");
+            buttonHitung.Sensitive = true;
             md.Destroy();
         }
     }
 
     private BigInteger Facto(BigInteger x) //factorial running synchronously
     {
-        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Task Factorial recursive started");
-        return x >= 1 ? x * Facto(x - 1) : 1; // 1!=1 and 0!=1 and stop recursion
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Task Factorial looping started");
+        //return x >= 1 ? x * Facto(x - 1) : 1; // 1!=1 and 0!=1 and stop recursion
+        BigInteger temp = 1;
+        for(BigInteger i=x; i>0; i--) //can't use recursion due to stackoverflowException when entering big numbers
+        {
+            temp *= i;
+        }
+        return temp;
     }
 
     private async Task<BigInteger> CountPermutation(int n, int r) //formula: n! / (n-r)! running asynchronously from main Thread

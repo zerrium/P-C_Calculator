@@ -220,7 +220,7 @@ public partial class MainWindow
 		this.hbox4.Spacing = 6;
 		// Container child hbox4.Gtk.Box+BoxChild
 		this.buttonHitung = new global::Gtk.Button();
-		this.buttonHitung.WidthRequest = 160;
+		this.buttonHitung.WidthRequest = 200;
 		this.buttonHitung.HeightRequest = 50;
 		this.buttonHitung.CanFocus = true;
 		this.buttonHitung.Name = "buttonHitung";
