@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Numerics;
-using System.Threading;
 using System.Threading.Tasks;
 using Gtk;
 
@@ -22,7 +21,7 @@ public partial class MainWindow : Window
 
     private void ErrorDialog(string text)
     {
-        Console.WriteLine("Error Dialog fired, message: " + text);
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Error Dialog fired, message: " + text);
         MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Error, ButtonsType.Close, text);
         md.Run();
         md.Destroy();
@@ -37,21 +36,21 @@ public partial class MainWindow : Window
     protected void OnSpinNChanged(object sender, EventArgs e)
     {
         double temp = spinN.Value;
-        Console.WriteLine("OnSpinNChanged Event fired");
-        Console.WriteLine("Value taken: " + temp);
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "OnSpinNChanged Event fired");
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Value taken: " + temp);
         spinR.SetRange(0, temp);
     }
 
     protected void OnSpinNTextInserted(object o, TextInsertedArgs args)
     {
         string temp = spinN.Text;
-        Console.WriteLine("OnSpinNTextInserted Event fired");
-        Console.WriteLine("Value taken: " + temp);
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "OnSpinNTextInserted Event fired");
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Value taken: " + temp);
         try
         {
             spinR.SetRange(0, Convert.ToDouble(temp));
         }
-        catch (System.FormatException)
+        catch (FormatException)
         {
 
         }
@@ -60,13 +59,13 @@ public partial class MainWindow : Window
     protected void OnSpinNTextDeleted(object o, TextDeletedArgs args)
     {
         string temp = spinN.Text;
-        Console.WriteLine("OnSpinNTextDeleted Event fired");
-        Console.WriteLine("Value taken: " + temp);
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "OnSpinNTextDeleted Event fired");
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Value taken: " + temp);
         try
         {
             spinR.SetRange(0, Convert.ToDouble(temp));
         }
-        catch (System.FormatException)
+        catch (FormatException)
         {
 
         }
@@ -75,14 +74,14 @@ public partial class MainWindow : Window
 
     protected void OnRadiobuttonPToggled(object sender, EventArgs e)
     {
-        Console.WriteLine("OnRadiobuttonPToggled Event fired");
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "OnRadiobuttonPToggled Event fired");
         ChangeLabelNR();
     }
 
     protected void OnButtonHitungClicked(object sender, EventArgs e)
     {
         bool isPermutation = radiobuttonP.Active;
-        Console.WriteLine("OnButtonHitungClicked Event fired");
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "OnButtonHitungClicked Event fired");
 
         //Check for user error
         if (!isPermutation && !radiobuttonC.Active)
@@ -97,8 +96,8 @@ public partial class MainWindow : Window
         {
             n = Convert.ToInt32(spinN.Text);
             r = Convert.ToInt32(spinR.Text);
-            Console.WriteLine("Value of N: " + n);
-            Console.WriteLine("Value of R: " + r);
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Value of N: " + n);
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Value of R: " + r);
         }
         catch (System.FormatException)
         {
@@ -128,23 +127,57 @@ public partial class MainWindow : Window
 
         string result = isPermutation ? CountPermutation(n, r).Result.ToString("R") : CountCombination(n, r).Result.ToString("R"); //preserve the whole BigInteger value
         string text = "Hasil " + (isPermutation ? "permutasi:" : "kombinasi:") + "\n" + result;
-        text += "\n\nTekan Yes untuk mengcopy hasil ke clipboard.";
-        MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.YesNo, text);
-        ResponseType res = (ResponseType)md.Run();
-        Console.WriteLine("Info Dialog fired. Message:\n" + text);
+        bool lihatRumus = false;
+        text += "\n\n";
+        MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.None, text);
+        Button b0 = (Button)md.AddButton("Lihat Rumus", 0);
+        Button b1 = (Button)md.AddButton("Copy Hasil", 1);
+        Button b2 = (Button)md.AddButton("Tutup", 2);
 
-        if (res == ResponseType.Yes)
+        b0.Clicked += ButtonDialogRumusClicked;
+        b1.Clicked += ButtonDialogCopyClicked;
+        b2.Clicked += ButtonDialogTutupClicked;
+
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Info Dialog fired. Message:\n" + text);
+        md.Run();
+
+        void ButtonDialogRumusClicked(object senderr, EventArgs ee)
         {
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "ButtonDialogRumusClicked event fired");
+            if (!lihatRumus)
+            {
+                text += isPermutation ? "n! / (n-r)!" : "n! / (r! * (n-r)!)";
+                md.Text = text;
+                lihatRumus = true;
+                b0.Label = "Sembunyikan Rumus";
+            }
+            else
+            {
+                text = isPermutation ? text.Replace("n! / (n-r)!", "") : text.Replace("n! / (r! * (n-r)!)", "");
+                md.Text = text;
+                lihatRumus = false;
+                b0.Label = "Lihat Rumus";
+            }
+        }
+
+        void ButtonDialogCopyClicked(object senderr, EventArgs ee)
+        {
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "ButtonDialogCopyClicked event fired");
             Clipboard clipboard = Clipboard.Get(Gdk.Atom.Intern("CLIPBOARD", false));
             clipboard.Text = result;
-            Console.WriteLine("Copied result to clipboard. Value: \n" + result);
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Copied result to clipboard. Value: \n" + result);
         }
-        md.Destroy();
+
+        void ButtonDialogTutupClicked(object senderr, EventArgs ee)
+        {
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "ButtonDialogTutupClicked event fired");
+            md.Destroy();
+        }
     }
 
     private async Task<BigInteger> Facto(BigInteger x) //factorial running asynchronously
     {
-        Console.WriteLine("Task Factorial recursive started");
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Task Factorial recursive started");
         if (x >= 1)
         {
             Task<BigInteger> temp = Facto(x - 1);
@@ -159,60 +192,68 @@ public partial class MainWindow : Window
 
     private async Task<BigInteger> CountPermutation(int n, int r) //formula: n! / (n-r)! running asynchronously from main Thread
     {
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "CountPermutation Task initiated");
         Task<BigInteger>[] tasks = new Task<BigInteger>[2];
         tasks[0] = Hitung("atas", "CountPermutation", n);
-        tasks[1] = Hitung("bawah", "CountPermutation", n-r);
+        tasks[1] = Hitung("bawah", "CountPermutation", n - r);
 
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Waiting for Task atas and bawah of CountPermutation...");
         await Task.WhenAll(tasks); //wait for all tasks to be done
+        plsWait.Hide();
         plsWait.Destroy();
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "All tasks are done. Result of CountPermutation returned");
         return tasks[0].Result / tasks[1].Result;
 
         /* Instead of using Thread, Willy used Task which is proven better 
         Thread atas = new Thread((obj) => {
-            Console.WriteLine("Thread atas of CountPermutation() has started.");
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Thread atas of CountPermutation() has started.");
             result_atas = Facto(n);
-            Console.WriteLine("Thread atas of CountPermutation() finished.");
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Thread atas of CountPermutation() finished.");
         });
 
         Thread bawah = new Thread((obj) => {
-            Console.WriteLine("Thread bawah of CountPermutation() has started.");
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Thread bawah of CountPermutation() has started.");
             result_bawah = Facto(n - r);
-            Console.WriteLine("Thread bawah of CountPermutation() finished.");
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Thread bawah of CountPermutation() finished.");
         });
 
         Thread hitung = new Thread((obj) => {
             atas.Join(); //wait until atas thread done
             bawah.Join(); //wait until bawah thread done
-            Console.WriteLine("Thread hitung of CountPermutation() has started.");
+            Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Thread hitung of CountPermutation() has started.");
             //result_akhir = result_atas/result_bawah; //not thread safe :(
         });
 
         atas.Start();
         bawah.Start();
         hitung.Start();
-        Console.WriteLine("Running tasks...");
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Running tasks...");
         return -1;
-        */       
+        */
     }
 
-    private async Task<BigInteger> CountCombination(int n, int r) //formula: n! / (r! * (n-r)!)
+    private async Task<BigInteger> CountCombination(int n, int r) //formula: n! / (r! * (n-r)!) running asynchronously from main Thread
     {
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "CountCombination Task initiated");
         Task<BigInteger>[] tasks = new Task<BigInteger>[3];
         tasks[0] = Hitung("atas", "CountCombination", n);
         tasks[1] = Hitung("bawah kiri", "CountCombination", r);
-        tasks[2] = Hitung("bawah kanan", "CountCombination", n-r);
+        tasks[2] = Hitung("bawah kanan", "CountCombination", n - r);
 
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Waiting for Task atas, bawah kiri and bawah kanan of CountCombination...");
         await Task.WhenAll(tasks); //wait for all tasks to be done
+        plsWait.Hide();
         plsWait.Destroy();
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "All tasks are done. Result of CountCombination returned");
         return tasks[0].Result / (tasks[1].Result * tasks[2].Result);
     }
 
-    private async Task<BigInteger> Hitung(string name, string func, int x)
+    private async Task<BigInteger> Hitung(string name, string func, int x) //debugging task
     {
-        Console.WriteLine("Task " + name + " of " + func + " has started");
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Task " + name + " of " + func + " has started");
         Task<BigInteger> task = Facto(x);
         await Task.WhenAll(task);
-        Console.WriteLine("Task " + name + " of " + func + " has finished");
+        Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Task " + name + " of " + func + " has finished");
         return task.Result;
     }
 }
