@@ -10,7 +10,7 @@ namespace UTS_OS
         {
             if (Environment.OSVersion.Platform.ToString().Contains("Win"))
             {
-                CheckWindowsGtk();
+                CheckWindowsGtk(); //Must be called on Windows
             }
             Application.Init();
             Console.WriteLine("Application innitiated.\nBuilt by: Willy Susilo\nProject idea and concept by: Willy Susilo");
@@ -20,7 +20,7 @@ namespace UTS_OS
         }
 
 
-        static bool CheckWindowsGtk()
+        static bool CheckWindowsGtk() //Thanks Stack Overflow! Basically this checks GTK# .NET installation on Windows
         {
             string location = null;
             Version version = null;

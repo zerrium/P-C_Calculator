@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Numerics;
+using System.Threading;
+using System.Threading.Tasks;
 using Gtk;
 
 public partial class MainWindow : Window
 {
+    private MessageDialog plsWait;
 
     public MainWindow() : base(WindowType.Toplevel)
     {
@@ -43,7 +46,7 @@ public partial class MainWindow : Window
     {
         string temp = spinN.Text;
         Console.WriteLine("OnSpinNTextInserted Event fired");
-        Console.WriteLine("Value taken: "+ temp);
+        Console.WriteLine("Value taken: " + temp);
         try
         {
             spinR.SetRange(0, Convert.ToDouble(temp));
@@ -58,7 +61,7 @@ public partial class MainWindow : Window
     {
         string temp = spinN.Text;
         Console.WriteLine("OnSpinNTextDeleted Event fired");
-        Console.WriteLine("Value taken: "+ temp);
+        Console.WriteLine("Value taken: " + temp);
         try
         {
             spinR.SetRange(0, Convert.ToDouble(temp));
@@ -108,23 +111,26 @@ public partial class MainWindow : Window
             return;
         }
 
-        if (r>n)
+        if (r > n)
         {
             ErrorDialog("Nilai sub-set (r) tidak bisa lebih besar dari nilai set (n)");
             return;
         }
 
-        if (r<0 || n<0)
+        if (r < 0 || n < 0)
         {
             ErrorDialog("Anda tidak bisa memasukkan bilangan negatif.");
             return;
         }
 
-        string result = isPermutation ? CountPermutation().ToString("R") : CountCombination().ToString("R"); //preserve the whole BigInteger value
+        plsWait = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.None, "Menghitung hasil...");
+        plsWait.Run();
+
+        string result = isPermutation ? CountPermutation(n, r).Result.ToString("R") : CountCombination(n, r).Result.ToString("R"); //preserve the whole BigInteger value
         string text = "Hasil " + (isPermutation ? "permutasi:" : "kombinasi:") + "\n" + result;
         text += "\n\nTekan Yes untuk mengcopy hasil ke clipboard.";
         MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.YesNo, text);
-        ResponseType res = (ResponseType) md.Run();
+        ResponseType res = (ResponseType)md.Run();
         Console.WriteLine("Info Dialog fired. Message:\n" + text);
 
         if (res == ResponseType.Yes)
@@ -136,18 +142,77 @@ public partial class MainWindow : Window
         md.Destroy();
     }
 
-    private BigInteger Facto(BigInteger x) //factorial
+    private async Task<BigInteger> Facto(BigInteger x) //factorial running asynchronously
     {
-        return x >= 1 ? x * Facto(x - 1) : 1; // 1!=1 and 0!=1 and stop recursion
+        Console.WriteLine("Task Factorial recursive started");
+        if (x >= 1)
+        {
+            Task<BigInteger> temp = Facto(x - 1);
+            await Task.WhenAll(temp);
+            return x * temp.Result;
+        }
+        else
+        {
+            return 1; // 1!=1 and 0!=1 and stop recursion
+        }
     }
 
-    private BigInteger CountPermutation() //formula: n! / (n-r)!
+    private async Task<BigInteger> CountPermutation(int n, int r) //formula: n! / (n-r)! running asynchronously from main Thread
     {
-        return 0;
+        Task<BigInteger>[] tasks = new Task<BigInteger>[2];
+        tasks[0] = Hitung("atas", "CountPermutation", n);
+        tasks[1] = Hitung("bawah", "CountPermutation", n-r);
+
+        await Task.WhenAll(tasks); //wait for all tasks to be done
+        plsWait.Destroy();
+        return tasks[0].Result / tasks[1].Result;
+
+        /* Instead of using Thread, Willy used Task which is proven better 
+        Thread atas = new Thread((obj) => {
+            Console.WriteLine("Thread atas of CountPermutation() has started.");
+            result_atas = Facto(n);
+            Console.WriteLine("Thread atas of CountPermutation() finished.");
+        });
+
+        Thread bawah = new Thread((obj) => {
+            Console.WriteLine("Thread bawah of CountPermutation() has started.");
+            result_bawah = Facto(n - r);
+            Console.WriteLine("Thread bawah of CountPermutation() finished.");
+        });
+
+        Thread hitung = new Thread((obj) => {
+            atas.Join(); //wait until atas thread done
+            bawah.Join(); //wait until bawah thread done
+            Console.WriteLine("Thread hitung of CountPermutation() has started.");
+            //result_akhir = result_atas/result_bawah; //not thread safe :(
+        });
+
+        atas.Start();
+        bawah.Start();
+        hitung.Start();
+        Console.WriteLine("Running tasks...");
+        return -1;
+        */       
     }
 
-    private BigInteger CountCombination() //formula: n! / (r! * (n-r)!)
+    private async Task<BigInteger> CountCombination(int n, int r) //formula: n! / (r! * (n-r)!)
     {
-        return 0;
+        Task<BigInteger>[] tasks = new Task<BigInteger>[3];
+        tasks[0] = Hitung("atas", "CountCombination", n);
+        tasks[1] = Hitung("bawah kiri", "CountCombination", r);
+        tasks[2] = Hitung("bawah kanan", "CountCombination", n-r);
+
+        await Task.WhenAll(tasks); //wait for all tasks to be done
+        plsWait.Destroy();
+        return tasks[0].Result / (tasks[1].Result * tasks[2].Result);
+    }
+
+    private async Task<BigInteger> Hitung(string name, string func, int x)
+    {
+        Console.WriteLine("Task " + name + " of " + func + " has started");
+        Task<BigInteger> task = Facto(x);
+        await Task.WhenAll(task);
+        Console.WriteLine("Task " + name + " of " + func + " has finished");
+        return task.Result;
     }
 }
