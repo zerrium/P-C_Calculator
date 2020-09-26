@@ -13,6 +13,7 @@ namespace UTS_OS
                 CheckWindowsGtk();
             }
             Application.Init();
+            Console.WriteLine("Application innitiated.\nBuilt by: Willy Susilo\nProject idea and concept by: Willy Susilo");
             MainWindow win = new MainWindow();
             win.Show();
             Application.Run();

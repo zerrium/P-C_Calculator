@@ -127,6 +127,7 @@ public partial class MainWindow
 		w8.Fill = false;
 		// Container child vbox1.Gtk.Box+BoxChild
 		this.vbox2 = new global::Gtk.VBox();
+		this.vbox2.Name = "vbox2";
 		this.vbox2.Spacing = 8;
 		this.vbox2.BorderWidth = ((uint)(20));
 		// Container child vbox2.Gtk.Box+BoxChild
@@ -219,7 +220,7 @@ public partial class MainWindow
 		this.hbox4.Spacing = 6;
 		// Container child hbox4.Gtk.Box+BoxChild
 		this.buttonHitung = new global::Gtk.Button();
-		this.buttonHitung.WidthRequest = 150;
+		this.buttonHitung.WidthRequest = 160;
 		this.buttonHitung.HeightRequest = 50;
 		this.buttonHitung.CanFocus = true;
 		this.buttonHitung.Name = "buttonHitung";
@@ -247,5 +248,6 @@ public partial class MainWindow
 		this.spinN.Changed += new global::System.EventHandler(this.OnSpinNChanged);
 		this.spinN.TextInserted += new global::Gtk.TextInsertedHandler(this.OnSpinNTextInserted);
 		this.spinN.TextDeleted += new global::Gtk.TextDeletedHandler(this.OnSpinNTextDeleted);
+		this.buttonHitung.Clicked += new global::System.EventHandler(this.OnButtonHitungClicked);
 	}
 }

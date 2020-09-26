@@ -244,12 +244,13 @@
             <child>
               <widget class="Gtk.Button" id="buttonHitung">
                 <property name="MemberName" />
-                <property name="WidthRequest">150</property>
+                <property name="WidthRequest">160</property>
                 <property name="HeightRequest">50</property>
                 <property name="CanFocus">True</property>
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Hitung</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnButtonHitungClicked" />
               </widget>
               <packing>
                 <property name="Position">1</property>
