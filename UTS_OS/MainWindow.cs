@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Numerics;
 using Gtk;
 
-public partial class MainWindow : Gtk.Window
+public partial class MainWindow : Window
 {
 
-    public MainWindow() : base(Gtk.WindowType.Toplevel)
+    public MainWindow() : base(WindowType.Toplevel)
     {
         Build();
         labelNR.ModifyFont(Pango.FontDescription.FromString("36"));
@@ -30,7 +31,7 @@ public partial class MainWindow : Gtk.Window
         a.RetVal = true;
     }
 
-    protected void OnSpinNChanged(object sender, System.EventArgs e)
+    protected void OnSpinNChanged(object sender, EventArgs e)
     {
         double temp = spinN.Value;
         Console.WriteLine("OnSpinNChanged Event fired");
@@ -77,10 +78,11 @@ public partial class MainWindow : Gtk.Window
 
     protected void OnButtonHitungClicked(object sender, EventArgs e)
     {
+        bool isPermutation = radiobuttonP.Active;
         Console.WriteLine("OnButtonHitungClicked Event fired");
 
         //Check for user error
-        if (!radiobuttonP.Active && !radiobuttonC.Active)
+        if (!isPermutation && !radiobuttonC.Active)
         {
             ErrorDialog("Anda belum memilih operasi perhitungan.\nSilahkan pilih operasi Permutasi atau Kombinasi.");
             return;
@@ -117,5 +119,35 @@ public partial class MainWindow : Gtk.Window
             ErrorDialog("Anda tidak bisa memasukkan bilangan negatif.");
             return;
         }
+
+        string result = isPermutation ? CountPermutation().ToString("R") : CountCombination().ToString("R"); //preserve the whole BigInteger value
+        string text = "Hasil " + (isPermutation ? "permutasi:" : "kombinasi:") + "\n" + result;
+        text += "\n\nTekan Yes untuk mengcopy hasil ke clipboard.";
+        MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.YesNo, text);
+        ResponseType res = (ResponseType) md.Run();
+        Console.WriteLine("Info Dialog fired. Message:\n" + text);
+
+        if (res == ResponseType.Yes)
+        {
+            Clipboard clipboard = Clipboard.Get(Gdk.Atom.Intern("CLIPBOARD", false));
+            clipboard.Text = result;
+            Console.WriteLine("Copied result to clipboard. Value: \n" + result);
+        }
+        md.Destroy();
+    }
+
+    private BigInteger Facto(BigInteger x) //factorial
+    {
+        return x >= 1 ? x * Facto(x - 1) : 1; // 1!=1 and 0!=1 and stop recursion
+    }
+
+    private BigInteger CountPermutation() //formula: n! / (n-r)!
+    {
+        return 0;
+    }
+
+    private BigInteger CountCombination() //formula: n! / (r! * (n-r)!)
+    {
+        return 0;
     }
 }
