@@ -5,8 +5,6 @@ using Gtk;
 
 public partial class MainWindow : Window
 {
-    private MessageDialog plsWait;
-
     public MainWindow() : base(WindowType.Toplevel)
     {
         Build();
@@ -122,19 +120,35 @@ public partial class MainWindow : Window
             return;
         }
 
-        plsWait = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.None, "Menghitung hasil...");
-        plsWait.Run();
+        MessageDialog plsWait = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.None, "Menghitung hasil...");
+        plsWait.ShowAll();
 
         string result = isPermutation ? CountPermutation(n, r).Result.ToString("R") : CountCombination(n, r).Result.ToString("R"); //preserve the whole BigInteger value
-        string text = "Hasil " + (isPermutation ? "permutasi:" : "kombinasi:") + "\n" + result;
+        string text = "Hasil " + (isPermutation ? "permutasi:" : "kombinasi:") + "\n";
+        string result_normalized = result; //long numbers have enter to prevent message dialog width too wide
         bool lihatRumus = false;
-        text += "\n\n";
+        int countLine = 1;
+
+        for(int i=200; i<result.Length; i+=200)
+        {
+            if (countLine > 40)
+            {
+                result_normalized = result_normalized.Remove(i + 1) + "...\nHasil terlalu panjang. Tekan tombol Copy Hasil untuk mengcopy hasil utuhnya.";
+                break;
+            }
+            result_normalized = result_normalized.Insert(i, "\n");
+            countLine++;
+        }
+        text += result_normalized +"\n\n";
+        plsWait.Destroy();
+
         MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.None, text);
         Button b0 = (Button)md.AddButton("Lihat Rumus", 0);
         Button b1 = (Button)md.AddButton("Copy Hasil", 1);
         Button b2 = (Button)md.AddButton("Tutup", 2);
 
         b0.Clicked += ButtonDialogRumusClicked;
+        b0.WidthRequest = 160;
         b1.Clicked += ButtonDialogCopyClicked;
         b2.Clicked += ButtonDialogTutupClicked;
 
@@ -190,8 +204,6 @@ public partial class MainWindow : Window
 
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Waiting for Task atas and bawah of CountPermutation...");
         await Task.WhenAll(tasks); //wait for all tasks to be done
-        plsWait.Hide();
-        plsWait.Destroy();
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "All tasks are done. Result of CountPermutation returned");
         return tasks[0].Result / tasks[1].Result;
 
@@ -233,8 +245,6 @@ public partial class MainWindow : Window
 
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Waiting for Task atas, bawah kiri and bawah kanan of CountCombination...");
         await Task.WhenAll(tasks); //wait for all tasks to be done
-        plsWait.Hide();
-        plsWait.Destroy();
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "All tasks are done. Result of CountCombination returned");
         return tasks[0].Result / (tasks[1].Result * tasks[2].Result);
     }
