@@ -175,27 +175,18 @@ public partial class MainWindow : Window
         }
     }
 
-    private async Task<BigInteger> Facto(BigInteger x) //factorial running asynchronously
+    private BigInteger Facto(BigInteger x) //factorial running synchronously
     {
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Task Factorial recursive started");
-        if (x >= 1)
-        {
-            Task<BigInteger> temp = Facto(x - 1);
-            await Task.WhenAll(temp);
-            return x * temp.Result;
-        }
-        else
-        {
-            return 1; // 1!=1 and 0!=1 and stop recursion
-        }
+        return x >= 1 ? x * Facto(x - 1) : 1; // 1!=1 and 0!=1 and stop recursion
     }
 
     private async Task<BigInteger> CountPermutation(int n, int r) //formula: n! / (n-r)! running asynchronously from main Thread
     {
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "CountPermutation Task initiated");
         Task<BigInteger>[] tasks = new Task<BigInteger>[2];
-        tasks[0] = Hitung("atas", "CountPermutation", n);
-        tasks[1] = Hitung("bawah", "CountPermutation", n - r);
+        tasks[0] = Task.Run(() => Hitung("atas", "CountPermutation", n));
+        tasks[1] = Task.Run(() => Hitung("bawah", "CountPermutation", n - r));
 
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Waiting for Task atas and bawah of CountPermutation...");
         await Task.WhenAll(tasks); //wait for all tasks to be done
@@ -236,9 +227,9 @@ public partial class MainWindow : Window
     {
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "CountCombination Task initiated");
         Task<BigInteger>[] tasks = new Task<BigInteger>[3];
-        tasks[0] = Hitung("atas", "CountCombination", n);
-        tasks[1] = Hitung("bawah kiri", "CountCombination", r);
-        tasks[2] = Hitung("bawah kanan", "CountCombination", n - r);
+        tasks[0] = Task.Run(() => Hitung("atas", "CountCombination", n));
+        tasks[1] = Task.Run(() => Hitung("bawah kiri", "CountCombination", r));
+        tasks[2] = Task.Run(() => Hitung("bawah kanan", "CountCombination", n - r));
 
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Waiting for Task atas, bawah kiri and bawah kanan of CountCombination...");
         await Task.WhenAll(tasks); //wait for all tasks to be done
@@ -251,9 +242,8 @@ public partial class MainWindow : Window
     private async Task<BigInteger> Hitung(string name, string func, int x) //debugging task
     {
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Task " + name + " of " + func + " has started");
-        Task<BigInteger> task = Facto(x);
-        await Task.WhenAll(task);
+        BigInteger temp = Facto(x);
         Console.WriteLine(DateTime.Now.ToString("[HH:mm:ss.fff] ") + "Task " + name + " of " + func + " has finished");
-        return task.Result;
+        return temp;
     }
 }
