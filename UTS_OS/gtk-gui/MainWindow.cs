@@ -44,7 +44,7 @@ public partial class MainWindow
 		global::Stetic.Gui.Initialize(this);
 		// Widget MainWindow
 		this.Name = "MainWindow";
-		this.Title = global::Mono.Unix.Catalog.GetString("Permutation and Combination Calculator by Willy Susilo");
+		this.Title = "Permutation and Combination Calculator by Willy Susilo";
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox1 = new global::Gtk.VBox();
@@ -70,14 +70,14 @@ public partial class MainWindow
 		// Container child hbox1.Gtk.Box+BoxChild
 		this.label1 = new global::Gtk.Label();
 		this.label1.Name = "label1";
-		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString("Pilih operasi perhitungan: ");
+		this.label1.LabelProp = "Pilih operasi perhitungan: ";
 		this.hbox1.Add(this.label1);
 		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.label1]));
 		w2.Position = 0;
 		w2.Expand = false;
 		w2.Fill = false;
 		// Container child hbox1.Gtk.Box+BoxChild
-		this.radiobuttonP = new global::Gtk.RadioButton(global::Mono.Unix.Catalog.GetString("Permutasi"));
+		this.radiobuttonP = new global::Gtk.RadioButton("Permutasi");
 		global::Gtk.Tooltips w3 = new Gtk.Tooltips();
 		w3.SetTip(this.radiobuttonP, "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
 				"kukan dari sejumlah (n) set item dengan (r) sub-set item. Note: operasi permutas" +
@@ -93,7 +93,7 @@ public partial class MainWindow
 		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.radiobuttonP]));
 		w4.Position = 1;
 		// Container child hbox1.Gtk.Box+BoxChild
-		this.radiobuttonC = new global::Gtk.RadioButton(global::Mono.Unix.Catalog.GetString("Kombinasi"));
+		this.radiobuttonC = new global::Gtk.RadioButton("Kombinasi");
 		w3.SetTip(this.radiobuttonC, "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
 				"kukan dari sejumlah (n) set item dengan (r) sub-set item yang unik (tanpa pengul" +
 				"angan pola dengan item yang sama)", "Merupakan operasi matematika untuk menghitung banyaknya kombinasi yang dapat dila" +
@@ -133,7 +133,7 @@ public partial class MainWindow
 		// Container child vbox2.Gtk.Box+BoxChild
 		this.labelNR = new global::Gtk.Label();
 		this.labelNR.Name = "labelNR";
-		this.labelNR.LabelProp = global::Mono.Unix.Catalog.GetString("N/A");
+		this.labelNR.LabelProp = "N/A";
 		this.vbox2.Add(this.labelNR);
 		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.labelNR]));
 		w9.Position = 0;
@@ -149,7 +149,7 @@ public partial class MainWindow
 		this.label3.WidthRequest = 400;
 		this.label3.Name = "label3";
 		this.label3.Xalign = 1F;
-		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString("Masukkan jumlah set (n): ");
+		this.label3.LabelProp = "Masukkan jumlah set (n): ";
 		this.hbox2.Add(this.label3);
 		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.label3]));
 		w10.Position = 0;
@@ -184,7 +184,7 @@ public partial class MainWindow
 		this.label4.WidthRequest = 400;
 		this.label4.Name = "label4";
 		this.label4.Xalign = 1F;
-		this.label4.LabelProp = global::Mono.Unix.Catalog.GetString("Masukkan jumlah sub-set (r): ");
+		this.label4.LabelProp = "Masukkan jumlah sub-set (r): ";
 		this.hbox3.Add(this.label4);
 		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.label4]));
 		w13.Position = 0;
@@ -225,7 +225,7 @@ public partial class MainWindow
 		this.buttonHitung.CanFocus = true;
 		this.buttonHitung.Name = "buttonHitung";
 		this.buttonHitung.UseUnderline = true;
-		this.buttonHitung.Label = global::Mono.Unix.Catalog.GetString("Hitung");
+		this.buttonHitung.Label = "Hitung";
 		this.hbox4.Add(this.buttonHitung);
 		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.buttonHitung]));
 		w17.Position = 1;

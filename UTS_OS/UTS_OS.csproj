@@ -51,7 +51,6 @@
       <Package>gtk-sharp-2.0</Package>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Mono.Posix" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
