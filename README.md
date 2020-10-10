@@ -10,9 +10,10 @@ Developed with Gtk# 2.12.45 for the GUI and Mono 6.12.0.90 for the C# compiler a
 * Linux:
   1. Install Mono [here](https://www.mono-project.com/download/stable/#download-lin) and on the step 2 use ```mono-complete``` instead of ```mono-devel```
   2. Verify the installation by typing ```mono --version``` on Terminal
-  3. Double click the .exe file or right mouse click at it and choose: Open With Mono Runtime
-  4. (Optional) If you want to see the debug messages, use Terminal at the .exe file location and type ```mono filename.exe``` command
-  5. It might take a while to launch the application, just wait and it will appear
+  3. Install gtk-sharp by using ```sudo apt-get install gtk-sharp2``` command on Terminal
+  4. Double click the .exe file or right mouse click at it and choose: Open With Mono Runtime
+  5. (Optional) If you want to see the debug messages, use Terminal at the .exe file location and type ```mono filename.exe``` command
+  6. It might take a while to launch the application, just wait and it will appear
 * Windows:
   1. Install Gtk# for .NET [here](https://www.mono-project.com/download/stable/#download-win) (the second row)
   2. Double click the .exe file
